@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+
+            .title {
+                align-content: center;
+                font-size: 24pt;
+                color: darkblue;
+            }
+
+            .button {
+                background-color: #4CAF50;
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+            }
+
+            #stepsArea {
+                font-size: 8pt;
+            }
+
+            #workingArea {
+                font-size: 12pt;
+            }
+
+            .titleDiv {
+                text-align: center;
+                padding: 15px 32px;
+            }
+
+            .stepsDiv {
+                text-align: center;
+                padding: 15px 32px;
+            }
+
+            .workingDiv {
+                text-align: center;
+                padding: 15px 32px;
+            }
+
+
+
+        </style>        
+
+        <!--        Include Tree and Node Classes-->
+        <script src="../TreeStructure/Nodes.js"></script>
+        <script src="../TreeStructure/Trees.js"></script>
+        <script type="text/javascript" src="Token_Class.js"></script>
+        <!--        Include Recognised Character Lists-->
+        <script src="characterLists.js"></script>
+        <!--        Include Lex and Parse Functions-->
+        <script src="lexArrayForNumbers.js"></script>
+        <script src="../Unmatched_Brackets/checkForUnmatched.js"></script>
+        <script src="parseUsingBedmas.js"></script>
+        <script src="stringNodesIntoBrackets.js"></script>
+        <!--        Compile these into a single script-->
+        <script src="parseUsingBedmas.js"></script>
+        <script src="lexStringToTokenArray.js"></script>
+        <script src="arrayToParseTree.js"></script>
+
+        <script type="text/javascript">
+
+            function lexSteps(){
+
+                var dud = 'Try entering some steps...';
+
+                var stepStringsArray = document.getElementById("stepsArea").value.match(/[^\r\n]+/g);
+
+                console.log(stepStringsArray);
+
+                if(stepStringsArray.length != 0){
+
+                    for(let i = 0 ; i < stepStringsArray.length ; i++){
+
+
+
+                        //Check for unmatched brackets in input string
+                        let roundCheck = checkForUnmatched(stepStringsArray[i], "(", ")");
+                        let squareCheck = checkForUnmatched(stepStringsArray[i], "[", "]");
+                        let braceCheck = checkForUnmatched(stepStringsArray[i], "{", "}");
+
+                        if(roundCheck){
+                            console.log("Unmatched "+roundCheck+" on line "+i);
+                        }
+                        if(squareCheck){
+                            console.log("Unmatched "+squareCheck+" on line "+i);
+                        }
+                        if(braceCheck){
+                            console.log("Unmatched "+braceCheck+" on line "+i);
+                        }
+
+                        //Lexer takes each string and breaks it into an array, then groups into tokens - numbers, words, macros, operators etc.
+
+                        stepStringsArray[i] = lexStringToTokenArray(stepStringsArray[i]); 
+                        
+                    }
+                    console.log(stepStringsArray);
+                }
+
+            }
+
+        </script>
+
+    </head>
+
+
+
+    <body>
+
+        <div class = "titleDiv">
+
+            <title class="title">Working Formula</title>
+
+        </div>
+
+
+        <div class = "stepsDiv">
+
+            <h1 style = "font-size: 16pt"> Steps </h1>
+
+            <textarea id = "stepsArea" cols = "50" rows = "10" onclick="this.select()">3\mult 4 = 12.000</textarea>
+
+            <p></p>
+
+            <button class = "button" onclick = "lexSteps()">Lex Me</button>
+            <button class = "button">Tree Me</button>
+            <button class = "button">Answer Me</button>
+        </div>
+
+        <div class = "workingDiv">
+
+            <h1 style = "font-size: 16pt">Input area</h1>
+
+            <textarea id = "workingArea" cols = "50" rows = "10" onclick = "this.select()">Enter working here</textarea>
+
+        </div>
+
+    </body>
+
+</html>

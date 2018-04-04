@@ -1,0 +1,40 @@
+Ideas:
+
+Cleaning Numbers: Check data type, look either side for spaces. Collate as a single array entry. 
+    e.g. 3 456 x ->[3, 456, x]
+
+
+    
+Send errors to the students - e.g. if parentheses are unmatched.
+
+Lexer:
+    TICK Check for unmatched parentheses
+    TICK First find numbers and store them correctly. 
+    
+    Insert tacit operations - between any abutting parentheses e.g. ')(' and between any numbers abutting variables e.g. 2x^2.
+    
+    Then store LaTex functions, operators and symbols
+    Then look for units, comparing with a given bank and store as such - REMOVE UNITS, check if they're correct, then do the calculations without them. :D
+    
+    Then look for given "functions" e.g. P(), f(), d/dx() and store inside in a manner totally      separate from outside.
+    Look for specific words ("of", "is", "is equal to") and convert to symbols (\times, =, =)
+    Look for letters as variables
+        - Maybe try Brad's suggestion, store against all alphanumeric and greek symbols, intelligently checking and removing variables as they are used...?
+    Then look for remaining oddities:
+        - Extra words we don't recognise (remove)
+        - Extra symbols we don't like (e.g. ', external (), {}, esp if they're facing the "wrong way")
+    Turn percentages into fractions - think about how this connects with using percentages as special symbols, like Sam was trying to do...
+
+Parser:
+    TICK Remove unnecessary brackets around the outside of each node's expression as it is parsed.  
+    Separate each node based on BEDMAS
+    Optionally simplify algebraic expressions like 1x = x, 0x=0.
+    Will it be faster to alphabetise algebraic expressions here, to save on re-orderings later?
+    SPlit each half of the equation into two pieces
+    Assume we don't allow x=1 x=2 on the same line - these are ridiculous, and really risky to try handle. Conside 'a = 2 b = 3'. What the heck does that mean? 
+    
+Variant Generator:
+    Simplify any and all numberical expressions to a single number.
+    Commute + and *
+    Think about simplifying algebra - expanding, factorising, simplifying fractions
+    
